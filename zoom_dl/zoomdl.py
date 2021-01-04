@@ -7,7 +7,7 @@ import requests
 import re
 from tqdm import tqdm
 import demjson
-# import browser_cookie3
+import browser_cookie3
 
 
 class ZoomDL():
@@ -16,9 +16,10 @@ class ZoomDL():
     def __init__(self, args):
         """Init the class."""
         self.args = args
+        print(self.args)
         self.session = requests.session()
         self.loglevel = self.args.log_level
-        # self._set_cookies(self.args.browser)
+        self._set_cookies(self.args.browser)
 
     def _print(self, message, level=0):
         """Print to console, if level is sufficient.
@@ -44,17 +45,19 @@ class ZoomDL():
         if level < 5 and level >= self.loglevel:
             print(message)
 
-    # def _set_cookies(browser):
-    #     if browser is None:
-    #         pass
-    #     else:
-    #         if browser.lower == "firefox":
-    #             self.session.cookies = browser_cookie3.firefox()
-    #         elif browser.lower == "chrome":
-    #             self.session.cookies = browser_cookie3.chrome()
-    #         else:
-    #             raise ValueError(("Browser {} not understood; "
-    #                               "Use Firefox or Chrome").format(browser))
+    def _set_cookies(self, browser):
+        if browser is None:
+            pass
+        else:
+            print(browser.lower == "firefox")
+            self.session.cookies = browser_cookie3.firefox()
+            # if browser.lower == "firefox":
+            #     self.session.cookies = browser_cookie3.firefox()
+            # elif browser.lower == "chrome":
+            #     self.session.cookies = browser_cookie3.chrome()
+            # else:
+            #     raise ValueError(("Browser {} not understood; "
+            #                       "Use Firefox or Chrome").format(browser))
 
     def _change_page(self, url):
         """Change page, with side methods."""
